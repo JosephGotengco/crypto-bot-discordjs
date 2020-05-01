@@ -19,8 +19,6 @@ client.on("message", (message) => {
 
     if (command === "ping") {
         message.channel.send("Pong.");
-    } else if (command === "beep") {
-        message.channel.send("Boop.");
     } else if (command === "get") {
         const crypto = args[0] || "BTC";
         const code = args[1] || "CAD";
@@ -29,8 +27,10 @@ client.on("message", (message) => {
                 `${CYRPTO_COMPARE_URL}${PRICE_ENDPOINT}?fsym=${crypto}&tsyms=${code}`
             )
             .then((response) => {
-				if (response.data.Response === "Error") {
-					message.channel.send(`Sorry there is no data for the code: ${crypto}`)
+                if (response.data.Response === "Error") {
+                    message.channel.send(
+                        `Sorry there is no data for the code: ${crypto}`
+                    );
                 } else {
                     message.channel.send(
                         `The price for 1 BTC is ${
